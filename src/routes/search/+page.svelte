@@ -29,6 +29,10 @@
     }
 </script>
 
+<svelte:head>
+    <title>Search - Kanime</title>
+</svelte:head>
+
 <div class="container">
     <div class="input">
         <img src="/images/SearchIcon.svg" alt="" />

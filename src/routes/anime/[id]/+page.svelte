@@ -24,6 +24,14 @@
     }
 </script>
 
+<svelte:head>
+    <title>{anime.titles[0]} - Kanime</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kanime" />
+    <meta property="og:title" content={anime.titles[0]} />
+    <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
+</svelte:head>
+
 {#if anime}
 <div class="header">
     <div class="img">
