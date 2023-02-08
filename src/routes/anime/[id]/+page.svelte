@@ -1,10 +1,12 @@
 <script>
     import { page } from '$app/stores';
+    import { getBlurHashCssGradient } from './utils.js'
     import BlurhashImage from 'svelte-blurhash/src/BlurhashImage.svelte'
 
     /** @type {import('./$types').LayoutData} */
     export let data;
     $: anime = data.anime;
+    $: bg = getBlurHashCssGradient(anime.poster.placeholder);
 
     let selectedMapping = 0;
     $: mapping = anime.mapping[selectedMapping];
@@ -34,13 +36,14 @@
 
 {#if anime}
 <div class="header">
-    <div class="img">
+    <div class="img poster">
         <BlurhashImage
             src={`https://kanime.fr/media/cache/${anime.poster.key}`}
             hash={anime.poster.placeholder}
             width={216} height={324} />
     </div>
     <h2>{anime.titles[0]}</h2>
+    <div class="background" style:background={bg}></div>
 </div>
 
 <h4>Information</h4>
@@ -93,12 +96,33 @@
 {/if}
 
 <style lang="scss">
+    :global(header) {
+        box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.16);
+    }
+
     div.header {
         display: flex;
         flex-flow: column wrap;
         align-items: center;
         color: #FFFFFF;
         gap: 16px;
+        position: relative;
+        z-index: 0;
+        padding-top: 32px;
+
+        .background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+
+        .poster {
+            box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
+        }
     }
 
     h2 {
@@ -146,7 +170,7 @@
             background-color: transparent;
             cursor: pointer;
             border-radius: 32px;
-            transition: transform .3s ease-in-out;
+            transition: transform .1s ease-in-out;
             padding: 4px 8px;
 
             img {
@@ -156,7 +180,7 @@
             }
 
             &:hover {
-                transform: scale(1.2);
+                transform: scale(1.25);
             }
         }
     }

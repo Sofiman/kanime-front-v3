@@ -1,5 +1,13 @@
+<script>
+    import { ProgressBar } from '@prgm/sveltekit-progress-bar'
+</script>
+
+<ProgressBar color="#F18FF3" />
 <header>
-    <a href="/"><img src="/images/KanimeLogo.svg" alt="Kanime" class="img" /></a>
+    <a href="/">
+        <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
+        <span>Kanime</span>
+    </a>
 </header>
 <main>
     <slot />
@@ -37,7 +45,6 @@
         font-weight: 500;
         line-height: 1.55;
         color: #FFFFFF;
-        padding: 12px 0;
     }
 
     :global(p) {margin-bottom: 1rem;}
@@ -110,6 +117,26 @@
         }
     }
 
+    :global(span.spinner) {
+        width: 24px;
+        height: 24px;
+        border: 3px solid currentColor;
+        border-bottom-color: transparent;
+        border-radius: 50%;
+        display: inline-block;
+        box-sizing: border-box;
+        animation: spinnerRotate 1s linear infinite;
+    }
+
+    @keyframes spinnerRotate {
+        0% {
+            transform: rotate(0deg);
+        }
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+
     main {
         flex-basis: 100%;
     }
@@ -117,14 +144,29 @@
     header {
         display: flex;
         justify-content: space-between;
-        
-        img {
-            margin: 12px 24px;
-            transition: transform .3s ease-in-out;
+        padding: 24px;
+        z-index: 3;
 
-            &:hover {
-                transform: scale(1.2);
+        a {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+
+            span {
+                font-weight: 800;
+                background-image: linear-gradient(0deg, #F18FF3, #8E31E1);
+                background-clip: text;
+                -webkit-background-clip: text;
+                color: transparent;
             }
+
+            &:hover img, &:focus img {
+                transform: scale(1.25);
+            }
+        }
+
+        img {
+            transition: transform .1s ease-in-out;
         }
     }
 
@@ -134,7 +176,7 @@
             flex-wrap: wrap;
             justify-content: center;
             color: #A3A3B0;
-            gap: 3px;
+            gap: 6px;
             margin: 4px;
 
             span {

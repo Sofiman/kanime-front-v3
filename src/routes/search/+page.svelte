@@ -5,12 +5,15 @@
     import { page } from '$app/stores';
 
     export let data;
+    let searching = false;
     let query = decodeURIComponent($page.url.searchParams.get('q'));
 
     function performSearch() {
         let params = new URLSearchParams();
         params.set('q', query);
-        goto(`?${params.toString()}`, { keepFocus: true });
+        searching = true;
+        goto(`?${params.toString()}`, { keepFocus: true, replaceState: true, noScroll: true })
+            .then(() => searching = false)
     }
 
     let debounce;
@@ -37,6 +40,11 @@
     <div class="input">
         <img src="/images/SearchIcon.svg" alt="" />
         <input bind:value={query} on:keyup={onKeyDown} placeholder="Search for an anime or manga" />
+        {#if searching}
+            <div class="loader">
+                <span class="spinner"></span>
+            </div>
+        {/if}
     </div>
     <div class="results">
         {#each data.results as anime (anime.id)}
@@ -70,6 +78,11 @@
             align-items: center;
             gap: 16px;
 
+            .img {
+                width: 64px;
+                height: 64px;
+            }
+
             h5 {
                 margin: 0;
             }
@@ -84,7 +97,20 @@
     }
 
     div.input {
-        width: 50vw;
+        width: 60vw;
+
+        div.loader {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F18FF3;
+
+            span.spinner {
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+            }
+        }
     }
 
     @media screen and (max-width: 700px) {

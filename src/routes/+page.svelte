@@ -6,7 +6,7 @@
     function performSearch() {
         let params = new URLSearchParams();
         params.set('q', query);
-        goto(`/search?${params.toString()}`, { keepFocus: true });
+        goto(`/search?${params.toString()}`);
     }
 
     let debounce;
@@ -52,7 +52,7 @@
     }
 
     div.input {
-        width: 50vw;
+        width: 60vw;
     }
 
     @media screen and (max-width: 700px) {
