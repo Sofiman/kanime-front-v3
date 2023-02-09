@@ -1,0 +1,7 @@
+.git
+.git*
+node_modules
+Dockerfile*
+.svelte-kit
+build
+.DS_Store
