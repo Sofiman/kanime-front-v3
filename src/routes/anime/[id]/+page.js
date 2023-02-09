@@ -1,8 +1,10 @@
 import { error } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 
 /** @type {import('./$types').PageLoad} */
 export async function load({ fetch, params }) {
-    const res = await fetch(`http://127.0.0.1:8080/anime/${params.id}`);
+    const baseUrl = dev ? `http://127.0.0.1:8080` : `https://api.kanime.fr`;
+    const res = await fetch(`${baseUrl}/anime/${params.id}`);
     if (res.status !== 200) {
         let msg = 'Unknown error';
         try {

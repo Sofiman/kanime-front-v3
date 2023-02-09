@@ -1,4 +1,5 @@
 import { error } from '@sveltejs/kit';
+import { dev } from '$app/environment';
 
 export async function load({ fetch, params, url }) {
     let query = url.searchParams.get('q');
@@ -10,7 +11,8 @@ export async function load({ fetch, params, url }) {
         return { results: [] };
     }
 
-    const res = await fetch(`http://127.0.0.1:8080/search`, {
+    const baseUrl = dev ? `http://127.0.0.1:8080` : `https://api.kanime.fr`;
+    const res = await fetch(`${baseUrl}/search`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
