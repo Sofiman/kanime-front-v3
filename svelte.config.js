@@ -10,7 +10,6 @@ const config = {
     kit: {
         adapter: adapter({
             precompress: true,
-            envPrefix: 'KANIME_FRONT'
         })
     }
 };
