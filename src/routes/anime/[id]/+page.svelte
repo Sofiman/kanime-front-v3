@@ -6,7 +6,7 @@
     /** @type {import('./$types').LayoutData} */
     export let data;
     $: anime = data.anime;
-    $: poster = `https://kanime.fr/media/cache/${anime.poster.key}`;
+    $: poster = `https://media.kanime.fr/${anime.poster.key}`;
     $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
 
     let selectedMapping = 0;
@@ -29,10 +29,13 @@
 
 <svelte:head>
     <title>{anime.titles[0]} - Kanime</title>
+    <meta property="description" content={`Check the anime-manga correspondance for ${anime.titles[0]}. Find out what episode or season to watch after or which volume or chapters to read. `} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kanime" />
     <meta property="og:title" content={anime.titles[0]} />
     <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
+    <meta property="og:image" content={`https://media.kanime.fr/${anime.poster.key}`} />
+    <meta property="og:image:type" content="image/webp" />
 </svelte:head>
 
 {#if anime}
@@ -105,10 +108,6 @@
 {/if}
 
 <style lang="scss">
-    :global(header) {
-        box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.16);
-    }
-
     div.header {
         display: flex;
         flex-flow: column wrap;

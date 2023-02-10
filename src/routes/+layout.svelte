@@ -1,15 +1,14 @@
 <script>
     import { ProgressBar } from '@prgm/sveltekit-progress-bar'
     import { goto } from '$app/navigation';
-    import { page } from '$app/stores';
+    import { page, navigating } from '$app/stores';
 
     $: searchPage = $page.url.pathname === "/search";
     let searching = false;
     let query;
-    $: {
-        if (searchPage){
-            query = decodeURIComponent($page.url.searchParams.get('q'));
-        }
+    $: if($navigating && $navigating.from.url.pathname !== "/search" &&
+        $navigating.to.url.pathname === "/search") {
+        query = decodeURIComponent($page.url.searchParams.get('q'));
     }
 
     function performSearch() {
@@ -41,7 +40,7 @@
     }
 </script>
 
-<ProgressBar color="#F18FF3" />
+<ProgressBar color="#F18FF3" z-index="101" />
 <header>
     <a href="/">
         <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
@@ -56,7 +55,7 @@
             </div>
         {/if}
     </div>
-    <div></div>
+    <div class="hidden"></div>
 </header>
 <main>
     <slot />
@@ -80,7 +79,8 @@
     }
 
     :global(html) {
-        background: #181820;
+        --background-color: #181820;
+        background: var(--background-color);
         color: #FFFFFF;
         font-size: 100%;
         height: 100%;
@@ -90,35 +90,37 @@
         display: flex;
         flex-direction: column;
         height: 100%;
-        background: #181820;
         font-weight: 500;
         line-height: 1.55;
         color: #FFFFFF;
+        --header-height: 72px;
+        --body-top-margin: var(--header-height);
+        --input-background-color: #393949;
     }
 
     :global(p) {margin-bottom: 1rem;}
 
     :global(h1, h2, h3, h4, h5) {
-        margin: 3rem 0 1.38rem;
-        font-family: 'Poppins', sans-serif;
-        font-weight: 700;
-        line-height: 1.3;
+      margin: 3rem 0 1.38rem;
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      line-height: 1.3;
     }
 
     :global(h1) {
-        margin-top: 0;
-        font-size: 3.052rem;
+      margin-top: 0;
+      font-size: 2.488rem;
     }
 
-    :global(h2) {font-size: 2.441rem;}
+    :global(h2) {font-size: 2.074rem;}
 
-    :global(h3) {font-size: 1.953rem;}
+    :global(h3) {font-size: 1.728rem;}
 
-    :global(h4) {font-size: 1.563rem;}
+    :global(h4) {font-size: 1.44rem;}
 
-    :global(h5) {font-size: 1.25rem;}
+    :global(h5) {font-size: 1.2rem;}
 
-    :global(small, .text_small) {font-size: 0.8rem;}
+    :global(small, .text_small) {font-size: 0.833rem;}
 
     :global(a) {
         color: #FFF;
@@ -126,6 +128,7 @@
     }
 
     :global(.img) {
+        display: block;
         user-select: none;
         border-radius: 4px;
         overflow: hidden;
@@ -137,7 +140,8 @@
         display: flex;
         padding: 0 16px;
         border-radius: 4px;
-        background-color: #393949;
+        background-color: var(--input-background-color);
+        align-items: center;
         gap: 16px;
         user-select: none;
 
@@ -145,11 +149,16 @@
             box-shadow: 0 0 0 3px #F18FF360;
         }
 
+        :global(img) {
+            width: 18px;
+            height: 18px;
+        }
+
         :global(input) {
             padding: 0;
             border: none;
             font-size: 16px;
-            background-color: #393949;
+            background-color: transparent;
             padding: 16px 0;
             color: #FFFFFF;
             width: 100%;
@@ -201,13 +210,22 @@
 
     main {
         flex-basis: 100%;
+        margin-top: var(--body-top-margin);
     }
 
     header {
-        display: flex;
-        justify-content: space-between;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        gap: 16px;
+        height: var(--header-height);
         padding: 8px 24px;
-        z-index: 3;
+        background-color: var(--background-color);
+        box-shadow: 0 4px 4px 0 rgb(0, 0, 0, 0.16);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 10;
 
         a {
             display: flex;
@@ -229,6 +247,26 @@
 
         img {
             transition: transform .1s ease-in-out;
+        }
+    }
+
+    @media screen and (max-width: 600px) {
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 16px;
+
+            div.input {
+                flex-grow: 1;
+            }
+
+            .hidden {
+                display: none;
+            }
+
+            a span {
+                display: none;
+            }
         }
     }
 

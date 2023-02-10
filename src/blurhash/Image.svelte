@@ -6,24 +6,29 @@
     export let alt;
     export let width;
     export let height;
-    export let fadeDuration = 500;
 
     let thisImage;
     onMount(() => {
-        thisImage.onload = () => {
-            thisImage.style.opacity = 1;
-            dispatch("imageLoaded", { fadeDuration });
-        };
+        if (thisImage.complete) {
+            dispatch("imageLoaded");
+        } else {
+            thisImage.onload = () => dispatch("imageLoaded");
+        }
     });
 </script>
 
 <img
-  bind:this={thisImage}
-  {src}
-  {alt}
-  {width}
-  {height}
-  style="position: absolute;top: 0;left: 0;opacity: 0;transition: opacity {fadeDuration}ms;"
-  loading="lazy"
-  decoding="async"
+    bind:this={thisImage}
+    {src}
+    {alt}
+    {width}
+    {height}
+    loading="lazy"
+    decoding="async"
 />
+
+<style>
+    img {
+        object-fit: cover;
+    }
+</style>

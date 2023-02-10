@@ -13,13 +13,11 @@
     export let blurhashHeight = 32;
     $: placeholder = typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
-
-    const onImageLoaded = () => loaded = true;
 </script>
 
 <div class="img">
     <Image
-        on:imageLoaded={onImageLoaded}
+        on:imageLoaded={() => loaded = true}
         {src}
         {alt}
         {width}
@@ -33,7 +31,7 @@
             {width}
             {height}
             {alt} />
-    {:else}
+    {:else if !loaded}
         <div class="placeholder"
              style:width={`width: ${width}px`}
              style:height={`height: ${height}px`}>
@@ -41,8 +39,16 @@
     {/if}
 </div>
 
-<style>
+<style lang="scss">
     .img {
         position: relative;
+
+        .placeholder {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+        }
     }
 </style>

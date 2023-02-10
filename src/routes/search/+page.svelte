@@ -7,18 +7,20 @@
 
 <svelte:head>
     <title>Search - Kanime</title>
+    <meta property="description" content="Check the anime/manga correspondence of your favorite series. Find out what episode or season to watch after or which volume or chapter to read." />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Kanime" />
+    <meta property="og:title" content="Search for anime or manga" />
 </svelte:head>
 
 <div class="container">
     <div class="results">
         {#each data.results as anime (anime.id)}
             <a href={`/anime/${anime.id}`} class="result">
-                <div class="img">
-                    <BlurhashImage
-                        src={`https://kanime.fr/media/cache/${anime.poster.key}`}
-                        hash={anime.poster.placeholder}
-                        width={64} height={64} />
-                </div>
+                <BlurhashImage
+                    src={`https://media.kanime.fr/310x468/${anime.poster.key}.webp`}
+                    hash={anime.poster.placeholder}
+                    width={64} height={64} />
                 <h5>{anime.titles[0]}</h5>
             </a>
         {:else}
@@ -42,11 +44,6 @@
             align-items: center;
             gap: 16px;
 
-            .img {
-                width: 64px;
-                height: 64px;
-            }
-
             h5 {
                 margin: 0;
             }
@@ -58,5 +55,6 @@
         align-items: center;
         flex-flow: column;
         gap: 16px;
+        margin-top: 16px;
     }
 </style>
