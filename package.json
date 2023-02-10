@@ -23,7 +23,6 @@
 	},
 	"type": "module",
 	"dependencies": {
-		"blurhash": "^1.1.5",
-		"svelte-blurhash": "^1.2.1"
+		"blurhash": "^1.1.5"
 	}
 }

@@ -1,5 +1,44 @@
 <script>
     import { ProgressBar } from '@prgm/sveltekit-progress-bar'
+    import { goto } from '$app/navigation';
+    import { page } from '$app/stores';
+
+    $: searchPage = $page.url.pathname === "/search";
+    let searching = false;
+    let query;
+    $: {
+        if (searchPage){
+            query = decodeURIComponent($page.url.searchParams.get('q'));
+        }
+    }
+
+    function performSearch() {
+        let params = new URLSearchParams();
+        params.set('q', query);
+        searching = true;
+        if (searchPage) {
+            goto(`?${params.toString()}`, { keepFocus: true, noScroll: true })
+                .then(() => searching = false);
+        } else {
+            goto(`/search?${params.toString()}`, { keepFocus: true })
+                .then(() => searching = false);
+        }
+    }
+
+    let debounce;
+    function onKeyDown(e) {
+        if (debounce){
+            clearTimeout(debounce);
+        }
+        if (e.key === "Enter") {
+            performSearch();
+            return;
+        }
+        debounce = setTimeout(() => {
+            debounce = undefined;
+            performSearch();
+        }, 500);
+    }
 </script>
 
 <ProgressBar color="#F18FF3" />
@@ -8,6 +47,16 @@
         <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
         <span>Kanime</span>
     </a>
+    <div class="input">
+        <img src="/images/SearchIcon.svg" alt="" />
+        <input bind:value={query} on:keyup={onKeyDown} placeholder="Search for an anime or manga" />
+        {#if searching}
+            <div class="loader">
+                <span class="spinner"></span>
+            </div>
+        {/if}
+    </div>
+    <div></div>
 </header>
 <main>
     <slot />
@@ -115,6 +164,19 @@
                 user-select: none;
             }
         }
+
+        :global(div.loader) {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #F18FF3;
+
+            :global(span.spinner) {
+                width: 16px;
+                height: 16px;
+                border-width: 2px;
+            }
+        }
     }
 
     :global(span.spinner) {
@@ -144,7 +206,7 @@
     header {
         display: flex;
         justify-content: space-between;
-        padding: 24px;
+        padding: 8px 24px;
         z-index: 3;
 
         a {

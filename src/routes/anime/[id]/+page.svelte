@@ -1,12 +1,13 @@
 <script>
     import { page } from '$app/stores';
     import { getBlurHashCssGradient } from './utils.js'
-    import BlurhashImage from 'svelte-blurhash/src/BlurhashImage.svelte'
+    import BlurhashImage from './../../../blurhash/BlurhashImage.svelte'
 
     /** @type {import('./$types').LayoutData} */
     export let data;
     $: anime = data.anime;
-    $: bg = getBlurHashCssGradient(anime.poster.placeholder);
+    $: poster = `https://kanime.fr/media/cache/${anime.poster.key}`;
+    $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
 
     let selectedMapping = 0;
     $: mapping = anime.mapping[selectedMapping];
@@ -36,9 +37,9 @@
 
 {#if anime}
 <div class="header">
-    <div class="img poster">
+    <div class="poster">
         <BlurhashImage
-            src={`https://kanime.fr/media/cache/${anime.poster.key}`}
+            src={poster}
             hash={anime.poster.placeholder}
             width={216} height={324} />
     </div>
@@ -65,13 +66,21 @@
 
 <div class="block">
     <div class="selector">
-        <button on:click={gotoMap(-1)}>
-            <img src="/images/ChevronLeft.svg" alt="Prev" />
-        </button>
+        {#if selectedMapping > 0}
+            <button on:click={gotoMap(-1)}>
+                <img src="/images/ChevronLeft.svg" alt="Prev" />
+            </button>
+        {:else}
+            <div></div>
+        {/if}
         {mapping.label}
-        <button on:click={gotoMap(1)}>
-            <img src="/images/ChevronRight.svg" alt="Next" />
-        </button>
+        {#if selectedMapping < anime.mapping.length - 1}
+            <button on:click={gotoMap(1)}>
+                <img src="/images/ChevronRight.svg" alt="Next" />
+            </button>
+        {:else}
+            <div></div>
+        {/if}
     </div>
 
     <div class="mapping">
