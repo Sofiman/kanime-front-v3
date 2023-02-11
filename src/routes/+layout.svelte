@@ -40,8 +40,8 @@
     }
 </script>
 
-<ProgressBar color="#F18FF3" z-index="101" />
 <header>
+    <ProgressBar color="#F18FF3" z-index="101" />
     <a href="/">
         <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
         <span>Kanime</span>
@@ -128,12 +128,10 @@
     }
 
     :global(.img) {
-        display: block;
+        display: flex;
         user-select: none;
         border-radius: 4px;
         overflow: hidden;
-        width: fit-content;
-        height: fit-content;
     }
 
     :global(div.input) {

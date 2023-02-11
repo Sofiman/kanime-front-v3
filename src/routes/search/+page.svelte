@@ -20,7 +20,7 @@
                 <BlurhashImage
                     src={`https://media.kanime.fr/310x468/${anime.poster.key}.webp`}
                     hash={anime.poster.placeholder}
-                    width={64} height={64} />
+                    width={155} height={234} />
                 <h5>{anime.titles[0]}</h5>
             </a>
         {:else}
