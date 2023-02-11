@@ -8,7 +8,6 @@
     export let hash;
     export let width = 32;
     export let height = 32;
-    export let fadeDuration = 200;
     export let blurhashWidth = 32;
     export let blurhashHeight = 32;
     $: placeholder = typeof hash === "string"
@@ -22,7 +21,6 @@
         {alt}
         {width}
         {height}
-        {fadeDuration}
     />
     {#if !loaded && placeholder}
         <img
