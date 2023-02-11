@@ -1,5 +1,7 @@
 <script>
+    import { scale } from 'svelte/transition';
     import BlurhashImage from './../../blurhash/BlurhashImage.svelte'
+    import { quintOut } from 'svelte/easing';
     import { page } from '$app/stores';
 
     export let data;
@@ -14,7 +16,7 @@
 </svelte:head>
 
 <div class="container">
-    <div class="results">
+    <div class="results" in:scale={{easing: quintOut}}>
         {#each data.results as anime (anime.id)}
             <a href={`/anime/${anime.id}`} class="result">
                 <BlurhashImage

@@ -1,6 +1,7 @@
 <script>
     import Image from './Image.svelte'
     import blurHashToDataURL from './blurHashToDataUrl.ts'
+    import { fade } from 'svelte/transition';
 
     let loaded = false;
     export let src;
@@ -23,7 +24,7 @@
         {height}
     />
     {#if !loaded && placeholder}
-        <img
+        <img transition:fade
             src={placeholder}
             class="placeholder"
             {width}
