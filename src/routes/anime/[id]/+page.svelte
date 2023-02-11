@@ -1,7 +1,10 @@
 <script>
     import { page } from '$app/stores';
+    import { onMount } from 'svelte';
     import { getBlurHashCssGradient } from './utils.js'
     import BlurhashImage from './../../../blurhash/BlurhashImage.svelte'
+
+    let locale;
 
     /** @type {import('./$types').LayoutData} */
     export let data;
@@ -9,6 +12,14 @@
     $: title = anime.titles[0];
     $: poster = `https://media.kanime.fr/${anime.poster.key}`;
     $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
+    $: lastUpdated = locale && new Intl.DateTimeFormat(locale, {
+        dateStyle: 'full',
+        timeStyle: 'short',
+    }).format(new Date(anime.updatedOn));
+
+    onMount(() => {
+        locale = (navigator && (navigator.languages || navigator.language)) || 'en-US';
+    });
 
     let selectedMapping = 0;
     $: mapping = anime.mapping[selectedMapping];
@@ -72,7 +83,7 @@
             </div>
         </div>
 
-        <h4>Anime Correspondance</h4>
+        <h4>Anime - Manga Correspondance</h4>
 
         <div class="block">
             <div class="selector">
@@ -111,6 +122,12 @@
                 </div>
             </div>
         </div>
+
+        {#if lastUpdated}
+            <div class="block">
+                <small>Last updated: <span>{lastUpdated}</span></small>
+            </div>
+        {/if}
     </div>
 </div>
 {/if}
@@ -195,10 +212,18 @@
         }
     }
 
-    h1, h2 {
+    h1, h2, small {
         text-align: center;
         padding: 8px 16px;
         margin: 0;
+    }
+
+    small {
+        color: #A3A3B0;
+
+        span {
+            color: #F18FF3;
+        }
     }
 
     h4 {
@@ -211,10 +236,6 @@
 
     div.block {
         padding: 0 32px;
-    }
-
-    div.separator {
-        margin-bottom: 16px;
     }
 
     div.info {
@@ -287,6 +308,10 @@
                 text-align: center;
                 background-color: #393949;
             }
+
+            &:hover, &focus {
+                animation: backgroundMove linear infinite 1s;
+            }
         }
 
         .range.episodes {
@@ -294,6 +319,11 @@
             background-clip: content-box;
             background-position-y: center;
             background-size: 12px 4px;
+
+            .start, .end {
+                box-shadow: inset 0 0 0 2px #FFFFFF;
+                background-color: #181820;
+            }
         }
 
         .range.chapters {
@@ -304,7 +334,8 @@
 
             .start, .end {
                 color: #F18FF3;
-                background-color: #3b2b41;
+                box-shadow: inset 0 0 0 2px #F18FF3;
+                background-color: #181820;
             }
         }
 
@@ -319,6 +350,15 @@
                 box-shadow: inset 0 0 0 2px #FFB8B8;
                 background-color: #181820;
             }
+        }
+    }
+
+    @keyframes backgroundMove {
+        from {
+            background-position-x: 0;
+        }
+        to {
+            background-position-x: 12px;
         }
     }
 </style>
