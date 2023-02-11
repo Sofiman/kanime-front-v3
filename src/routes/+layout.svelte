@@ -8,7 +8,10 @@
     let query;
     $: if($navigating && $navigating.from.url.pathname !== "/search" &&
         $navigating.to.url.pathname === "/search") {
-        query = decodeURIComponent($page.url.searchParams.get('q'));
+        let q = $page.url.searchParams.get('q');
+        if (q) {
+            query = q;
+        }
     }
 
     function performSearch() {
