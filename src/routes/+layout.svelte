@@ -44,7 +44,7 @@
 </script>
 
 <header>
-    <ProgressBar color="#F18FF3" z-index="101" />
+    <ProgressBar color="#F18FF3" />
     <a href="/">
         <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
         <span>Kanime</span>
