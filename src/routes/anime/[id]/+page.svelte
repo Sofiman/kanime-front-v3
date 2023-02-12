@@ -57,6 +57,7 @@
             <BlurhashImage
                 src={poster}
                 hash={anime.poster.placeholder}
+                blurhashHeight={48}
                 width={"auto"} height={"auto"} />
         </div>
         <h2 class="title">{title}</h2>
@@ -174,7 +175,6 @@
 
         .poster {
             box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
-            width: 100%;
 
             :global(.img img), :global(.img .placeholder) {
                 height: 85vh;
@@ -197,8 +197,6 @@
                 }
 
                 .poster {
-                    width: auto;
-
                     :global(.img img), :global(.img .placeholder)  {
                         width: 216px;
                         height: 324px;
@@ -309,7 +307,7 @@
                 background-color: #393949;
             }
 
-            &:hover, &focus {
+            &:hover {
                 animation: backgroundMove linear infinite 1s;
             }
         }

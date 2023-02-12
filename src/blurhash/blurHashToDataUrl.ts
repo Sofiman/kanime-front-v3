@@ -1,8 +1,8 @@
-import { decode } from "blurhash"
+import { decodeBlurHash } from "fast-blurhash"
 
 export default function blurHashToDataURL(hash: string, width: number, height: number, punch?: number): string {
-    const start = Date.now();
-   const pixels = decode(hash, width, height, punch)
+   const start = Date.now();
+   const pixels = decodeBlurHash(hash, width, height, punch)
    const dataURL = parsePixels(pixels, width, height)
    console.log("took", Date.now()-start);
    return dataURL
