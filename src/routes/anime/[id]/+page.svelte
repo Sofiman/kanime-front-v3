@@ -11,11 +11,11 @@
     $: anime = data.anime;
     $: title = anime.titles[0];
     $: poster = `https://media.kanime.fr/${anime.poster.key}`;
+    $: desc = `Check the anime-manga correspondance for ${title}. Find out what episode or season to watch after or which volume or chapters to read.`;
     $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
-    $: lastUpdated = locale && new Intl.DateTimeFormat(locale, {
-        dateStyle: 'full',
-        timeStyle: 'short',
-    }).format(new Date(anime.updatedOn));
+    $: lastUpdated = locale && new Intl.DateTimeFormat(locale,
+        { dateStyle: 'full', timeStyle: 'short' })
+        .format(new Date(anime.updatedOn));
 
     onMount(() => {
         locale = (navigator && (navigator.languages || navigator.language)) || 'en-US';
@@ -24,30 +24,31 @@
     let selectedMapping = 0;
     $: mapping = anime.mapping[selectedMapping];
 
-    function gotoMap(way) {
-        if (way === 1)
-        {
-            selectedMapping += 1;
-            if (selectedMapping == anime.mapping.length)
-                selectedMapping = anime.mapping.length - 1;
-        }
-        else if (way === -1) {
-            selectedMapping -= 1;
-            if (selectedMapping < 0)
-                selectedMapping = 0;
-        }
+    function next() {
+        selectedMapping += 1;
+        if (selectedMapping == anime.mapping.length)
+            selectedMapping = anime.mapping.length - 1;
+    }
+
+    function prev(way) {
+        selectedMapping -= 1;
+        if (selectedMapping < 0)
+            selectedMapping = 0;
     }
 </script>
 
 <svelte:head>
     <title>{title} - Kanime</title>
-    <meta property="description" content={`Check the anime-manga correspondance for ${title}. Find out what episode or season to watch after or which volume or chapters to read. `} />
+    <meta property="description" content={desc} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kanime" />
     <meta property="og:title" content={title} />
+    <meta property="og:description" content={desc} />
+    <meta property="og:locale" content="en_GB" />
     <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
     <meta property="og:image" content={`https://media.kanime.fr/${anime.poster.key}`} />
     <meta property="og:image:type" content="image/webp" />
+    <meta property="og:image:alt" content={`${title}'s poster`} />
 </svelte:head>
 
 {#if anime}
@@ -84,12 +85,12 @@
             </div>
         </div>
 
-        <h4>Anime - Manga Correspondance</h4>
+        <h4>Manga Correspondance</h4>
 
         <div class="block">
             <div class="selector">
                 {#if selectedMapping > 0}
-                    <button on:click={gotoMap(-1)}>
+                    <button on:click={prev}>
                         <img src="/images/ChevronLeft.svg" alt="Prev" />
                     </button>
                 {:else}
@@ -97,7 +98,7 @@
                 {/if}
                 {mapping.label}
                 {#if selectedMapping < anime.mapping.length - 1}
-                    <button on:click={gotoMap(1)}>
+                    <button on:click={next}>
                         <img src="/images/ChevronRight.svg" alt="Next" />
                     </button>
                 {:else}
