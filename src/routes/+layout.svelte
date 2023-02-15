@@ -274,7 +274,8 @@
         .logo {
             transition: transform .1s ease-in-out;
             width: 32px;
-            height: auto;
+            height: 32px;
+            object-fit: contain;
         }
     }
 
