@@ -101,6 +101,27 @@
         --input-background-color: #393949;
     }
 
+    :global(button) {
+        padding: 12px 16px;
+        border: none;
+        border-radius: 4px;
+        color: #181820;
+        background-color: #F18FF3;
+        font-weight: bold;
+        transition: all .1s;
+        margin: 4px 0;
+        cursor: pointer;
+
+        &:focus {
+            box-shadow: 0 0 0 3px #F18FF360;
+        }
+
+        &:hover {
+            outline: 2px solid #F18FF3;
+            outline-offset: 2px;
+        }
+    }
+
     :global(p) {margin-bottom: 1rem;}
 
     :global(h1, h2, h3, h4, h5) {
@@ -163,12 +184,16 @@
             padding: 16px 0;
             color: #FFFFFF;
             width: 100%;
+            font-weight: 500;
 
             &:focus {
                 outline: none;
             }
 
             &::placeholder {
+                font-family: 'Poppins', sans-serif;
+                font-weight: 600;
+                line-height: 1.3;
                 text-align: center;
                 color: #A3A3B0;
                 user-select: none;
@@ -246,7 +271,7 @@
             }
         }
 
-        img.logo {
+        .logo {
             transition: transform .1s ease-in-out;
             width: 32px;
             height: auto;

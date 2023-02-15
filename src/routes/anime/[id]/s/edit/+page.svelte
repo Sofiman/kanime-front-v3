@@ -3,5 +3,5 @@
   export let data;
 </script>
 
-<p>{data.user}</p>
+<p>Logged in: {data.user}</p>
 
