@@ -46,7 +46,7 @@
 <header>
     <ProgressBar color="#F18FF3" />
     <a href="/">
-        <img src="/images/KanimeLogo.svg" alt="Kanime" class="img" />
+        <img src="/images/KanimeLogo.svg" alt="Kanime" class="img logo" />
         <span>Kanime</span>
     </a>
     <div class="input">
@@ -246,8 +246,10 @@
             }
         }
 
-        img {
+        img.logo {
             transition: transform .1s ease-in-out;
+            width: 32px;
+            height: auto;
         }
     }
 

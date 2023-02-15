@@ -9,6 +9,7 @@
     export let hash;
     export let width = 32;
     export let height = 32;
+    export let loading;
     export let blurhashWidth = 32;
     export let blurhashHeight = 32;
     $: placeholder = typeof hash === "string"
@@ -21,6 +22,7 @@
         {src}
         {alt}
         {width}
+        {loading}
         {height}
     />
     {#if !loaded && placeholder}

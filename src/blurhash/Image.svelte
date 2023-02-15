@@ -6,6 +6,7 @@
     export let alt;
     export let width;
     export let height;
+    export let loading = "lazy";
 
     let thisImage;
     onMount(() => {
@@ -23,7 +24,7 @@
     {alt}
     {width}
     {height}
-    loading="lazy"
+    {loading}
     decoding="async"
 />
 

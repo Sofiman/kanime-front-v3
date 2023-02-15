@@ -59,16 +59,17 @@
                 src={poster}
                 hash={anime.poster.placeholder}
                 blurhashHeight={48}
+                loading={"eager"}
                 width={"auto"} height={"auto"} />
         </div>
-        <h2 class="title">{title}</h2>
+        <h1 class="title">{title}</h1>
         <div class="background" style:background={bg}></div>
     </div>
 
     <div class="content">
         <h1 class="title">{title}</h1>
 
-        <h4>Information</h4>
+        <h2 class="subtitle">Information</h2>
         <div class="block info">
             <div>
                 <div><span>Author:</span> {anime.manga.author}</div>
@@ -85,7 +86,7 @@
             </div>
         </div>
 
-        <h4>Manga Correspondance</h4>
+        <h2 class="subtitle">Manga Correspondance</h2>
 
         <div class="block">
             <div class="selector">
@@ -141,12 +142,12 @@
     }
 
     div.content {
-        h4 {
+        .subtitle {
             margin-top: 24px;
         }
 
         .title {
-            margin: 32px 0;
+            margin: 24px 0;
         }
     }
 
@@ -211,10 +212,13 @@
         }
     }
 
+    h1 {
+        margin: 0;
+    }
+
     h1, h2, small {
         text-align: center;
         padding: 8px 16px;
-        margin: 0;
     }
 
     small {
@@ -225,10 +229,10 @@
         }
     }
 
-    h4 {
+    h2.subtitle {
+        font-size: 1.44rem;
         background-color: #f18ff329;
         color: #F18FF3;
-        padding: 8px 32px;
         border-radius: 0 32px 32px 0;
         width: fit-content;
     }
