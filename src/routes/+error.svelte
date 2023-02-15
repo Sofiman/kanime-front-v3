@@ -4,6 +4,7 @@
 
 <svelte:head>
     <title>Error {$page.status} - Kanime</title>
+    <meta property="description" content={$page.error.message} />
 </svelte:head>
 
 <div>

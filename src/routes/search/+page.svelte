@@ -9,10 +9,11 @@
 
 <svelte:head>
     <title>Search - Kanime</title>
-    <meta property="description" content="Check the anime/manga correspondence of your favorite series. Find out what episode or season to watch after or which volume or chapter to read." />
+    <meta property="description" content="Search for an anime or manga. Find out what episode or season to watch after or which volume or chapter to read." />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kanime" />
-    <meta property="og:title" content="Search for anime or manga" />
+    <meta property="og:title" content="Search for an anime or manga" />
+    <meta property="og:locale" content="en_GB" />
 </svelte:head>
 
 <div class="container">
