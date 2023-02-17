@@ -102,6 +102,10 @@
     }
 
     :global(button) {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1rem;
         padding: 12px 16px;
         border: none;
         border-radius: 4px;
@@ -119,6 +123,24 @@
         &:hover {
             outline: 2px solid #F18FF3;
             outline-offset: 2px;
+        }
+
+        &:disabled {
+            opacity: 0.75;
+            cursor: auto;
+        }
+    }
+
+    :global(button.neutral) {
+        color: #A3A3B0;
+        background-color: #393949; 
+
+        &:focus {
+            box-shadow: 0 0 0 3px #39394960;
+        }
+
+        &:hover {
+            outline: 2px solid #393949;
         }
     }
 
