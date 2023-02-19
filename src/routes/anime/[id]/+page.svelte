@@ -10,7 +10,7 @@
     export let data;
     $: anime = data.anime;
     $: title = anime.titles[0];
-    $: poster = `https://media.kanime.fr/${anime.poster.key}`;
+    $: poster = `https://media.kanime.fr/fullres/${anime.poster.key}.webp`;
     $: desc = `Check the anime-manga correspondance for ${title}. Find out what episode or season to watch after or which volume or chapters to read.`;
     $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
     $: lastUpdated = locale && new Intl.DateTimeFormat(locale,
@@ -45,8 +45,8 @@
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
-    <meta property="og:image" content={`https://media.kanime.fr/${anime.poster.key}`} />
+    <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}.webp`} />
+    <meta property="og:image" content={`https://media.kanime.fr/pre/${anime.poster.key}`} />
     <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:alt" content={`${title}'s poster`} />
 </svelte:head>
