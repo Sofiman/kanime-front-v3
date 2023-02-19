@@ -7,7 +7,7 @@
     export let data;
     $: anime = data.anime;
     $: title = anime.titles[0];
-    $: poster = `https://media.kanime.fr/${anime.poster.key}`;
+    $: poster = `https://media.kanime.fr/fullres/${anime.poster.key}.webp`;
     $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
 
     let loading = false;

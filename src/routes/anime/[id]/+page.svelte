@@ -46,7 +46,7 @@
     <meta property="og:description" content={desc} />
     <meta property="og:locale" content="en_GB" />
     <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}.webp`} />
-    <meta property="og:image" content={`https://media.kanime.fr/pre/${anime.poster.key}`} />
+    <meta property="og:image" content={`https://media.kanime.fr/pre/${anime.poster.key}.webp`} />
     <meta property="og:image:type" content="image/webp" />
     <meta property="og:image:alt" content={`${title}'s poster`} />
 </svelte:head>
