@@ -52,11 +52,6 @@
     <meta property="og:image:alt" content={`${title}'s poster`} />
 
     <meta name="twitter:card" content="summary_large_image" />
-    <meta property="twitter:domain" content="kanime.fr" />
-    <meta property="twitter:url" content={`https://kanime.fr/anime/${anime.id}`} />
-    <meta name="twitter:title" content={title} />
-    <meta name="twitter:description" content={desc} />
-    <meta name="twitter:image" content={`https://media.kanime.fr/pre/${anime.poster.key}.webp`} />
 </svelte:head>
 
 {#if anime}
