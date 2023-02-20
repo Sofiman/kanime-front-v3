@@ -47,8 +47,8 @@
     <meta property="og:locale" content="en_GB" />
     <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
     <meta property="og:image" content={`https://media.kanime.fr/pre/${anime.poster.key}.webp`} />
-    <meta property="og:image:width" content="832" />
-    <meta property="og:image:height" content="468" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
     <meta property="og:image:alt" content={`${title}'s poster`} />
 
     <meta name="twitter:card" content="summary_large_image" />
