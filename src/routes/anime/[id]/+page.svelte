@@ -45,11 +45,18 @@
     <meta property="og:title" content={title} />
     <meta property="og:description" content={desc} />
     <meta property="og:locale" content="en_GB" />
-    <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}.webp`} />
+    <meta property="og:url" content={`https://kanime.fr/anime/${anime.id}`} />
     <meta property="og:image" content={`https://media.kanime.fr/pre/${anime.poster.key}.webp`} />
     <meta property="og:image:width" content="832" />
     <meta property="og:image:height" content="468" />
     <meta property="og:image:alt" content={`${title}'s poster`} />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta property="twitter:domain" content="kanime.fr" />
+    <meta property="twitter:url" content={`https://kanime.fr/anime/${anime.id}`} />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={desc} />
+    <meta name="twitter:image" content={`https://media.kanime.fr/pre/${anime.poster.key}.webp`} />
 </svelte:head>
 
 {#if anime}
