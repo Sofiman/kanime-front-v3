@@ -8,7 +8,7 @@ RUN npm ci
 RUN npm run build
 
 ##################################
-FROM oven/bun
+FROM oven/bun:latest
 
 # The port that your application listens to.
 EXPOSE 80
