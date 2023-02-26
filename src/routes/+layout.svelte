@@ -67,7 +67,8 @@
     <p>Version 1.0. Developed by <span>Sofiman</span> with <b>♥</b></p>
     <p>
         <a href="/">Privacy</a> •
-        <a href="/">Developers</a> •
+        <a href="https://documenter.getpostman.com/view/21781515/2s93CPrCQ7"
+            target="_blank" rel="noreferrer">Developers</a> •
         <a href="mailto:contact@kanime.fr">Contact</a> •
         <a href="mailto:contact@kanime.fr">Submit a suggestion</a>
     </p>
