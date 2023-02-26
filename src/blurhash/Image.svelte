@@ -10,7 +10,7 @@
 
     let thisImage;
     onMount(() => {
-        if (thisImage.complete) {
+        if (thisImage.complete && thisImage.naturalHeight !== 0) {
             dispatch("imageLoaded");
         } else {
             thisImage.onload = () => dispatch("imageLoaded");

@@ -38,7 +38,7 @@
 </script>
 
 <svelte:head>
-    <title>{title} - Kanime</title>
+    <title>{title} anime/manga correspondance - Kanime</title>
     <meta property="description" content={desc} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kanime" />
@@ -62,6 +62,7 @@
                 src={poster}
                 hash={anime.poster.placeholder}
                 blurhashHeight={48}
+                alt={`${title}'s poster`}
                 loading={"eager"}
                 width={"auto"} height={"auto"} />
         </div>
@@ -82,7 +83,7 @@
             </div>
 
             <div>
-                <div><span>Studio:</span> {anime.anime.studios}</div>
+                <div><span>Studios:</span> {anime.anime.studios.join(', ')}</div>
                 <div><span>Seasons:</span> {anime.anime.seasons}</div>
                 <div><span>Episodes:</span> {anime.anime.episodes}</div>
                 <div><span>Anime Release:</span> {anime.anime.releaseYear}</div>
@@ -127,6 +128,10 @@
                     <div class="end">{mapping.endVolume}</div>
                 </div>
             </div>
+
+            <p>{mapping.label} (episodes {mapping.startEpisode} trough {mapping.endEpisode})
+                starts at chapter {mapping.startChapter} in volume {mapping.startVolume} and
+                ends at chapter {mapping.endChapter} in volume {mapping.endVolume}</p>
         </div>
 
         {#if lastUpdated}
@@ -180,10 +185,11 @@
 
         .poster {
             box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
+            height: 100%;
 
-            :global(.img img), :global(.img .placeholder) {
-                height: 85vh;
-                width: 100%;
+            :global(.img img) {
+                max-height: 85vh;
+                max-width: 50vw;
             }
         }
     }
@@ -209,6 +215,10 @@
                 }
             }
 
+            div.info {
+                justify-content: start;
+            }
+
             div.content .title {
                 display: none;
             }
@@ -222,6 +232,10 @@
     h1, h2, small {
         text-align: center;
         padding: 8px 16px;
+    }
+
+    p {
+        color: #A3A3B0;
     }
 
     small {

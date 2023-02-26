@@ -19,10 +19,10 @@
 <div class="img">
     <Image
         on:imageLoaded={() => loaded = true}
+        {loading}
         {src}
         {alt}
         {width}
-        {loading}
         {height}
     />
     {#if !loaded && placeholder}
@@ -34,8 +34,8 @@
             {alt} />
     {:else if !loaded}
         <div class="placeholder"
-             style:width={`width: ${width}px`}
-             style:height={`height: ${height}px`}>
+            style:width={width}
+            style:height={height}>
         </div>
     {/if}
 </div>
@@ -50,6 +50,8 @@
             left: 0;
             right: 0;
             bottom: 0;
+            width: 100%;
+            height: 100%;
         }
     }
 </style>
