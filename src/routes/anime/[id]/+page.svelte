@@ -113,9 +113,15 @@
 
             <div class="mapping">
                 <div class="range episodes">
+                    {#if mapping.kind === 'movie'}
+                    <div class="start">0s</div>
+                    <span>Duration</span>
+                    <div class="end">{mapping.endEpisode}h</div>
+                    {:else}
                     <div class="start">{mapping.startEpisode}</div>
                     <span>Episodes</span>
                     <div class="end">{mapping.endEpisode}</div>
+                    {/if}
                 </div>
                 <div class="range chapters">
                     <div class="start">{mapping.startChapter}</div>
@@ -129,7 +135,12 @@
                 </div>
             </div>
 
-            <p>{mapping.label} (episodes {mapping.startEpisode} trough {mapping.endEpisode})
+            <p>{mapping.label} 
+                {#if mapping.kind === 'movie'}
+                (movie)
+                {:else}
+                (episodes {mapping.startEpisode} trough {mapping.endEpisode})
+                {/if}
                 starts at chapter {mapping.startChapter} in volume {mapping.startVolume} and
                 ends at chapter {mapping.endChapter} in volume {mapping.endVolume}</p>
         </div>
