@@ -209,8 +209,10 @@
 
                 .poster {
                     :global(.img img), :global(.img .placeholder)  {
-                        width: 216px;
+                        min-width: 216px;
                         height: 324px;
+                        max-width: none;
+                        max-height: none;
                     }
                 }
             }
@@ -279,6 +281,7 @@
         font-weight: bold;
         padding: 8px;
         border-radius: 4px;
+        text-align: center;
 
         button {
             border: none;
@@ -296,6 +299,12 @@
 
             &:hover {
                 transform: scale(1.25);
+                outline: none;
+            }
+
+            &:focus {
+                box-shadow: none;
+                outline-color: rgba(255, 255, 255, 0.16);
             }
         }
     }

@@ -28,8 +28,10 @@
                 <h5>{anime.titles[0]}</h5>
             </a>
         {:else}
-            <div class="result">
+            <div>
                 <h5>Sorry... No results :(</h5>
+                <p>Please note that Kanime is under active development and more
+                    animes are yet to come!</p>
             </div>
         {/each}
     </div>
@@ -39,17 +41,19 @@
     .results {
         display: flex;
         gap: 8px;
+        margin: 0 8px;
         flex-flow: column wrap;
 
         .result {
             display: flex;
-            flex-flow: row wrap;
+            flex-flow: row;
             color: #FFFFFF;
             align-items: center;
             gap: 16px;
 
             h5 {
                 margin: 0;
+                text-align: center;
             }
         }
     }
