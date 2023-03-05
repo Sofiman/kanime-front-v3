@@ -1,14 +1,14 @@
-<script>
+<script lang="ts">
     import { onMount, createEventDispatcher } from "svelte";
     const dispatch = createEventDispatcher();
 
-    export let src;
-    export let alt;
-    export let width;
-    export let height;
-    export let loading = "lazy";
+    export let src: string | null | undefined;
+    export let alt: string;
+    export let width: string | number | undefined;
+    export let height: string | number | undefined;
+    export let loading: "lazy" | "eager" | undefined = "lazy";
 
-    let thisImage;
+    let thisImage: HTMLImageElement;
     onMount(() => {
         if (thisImage.complete && thisImage.naturalHeight !== 0) {
             dispatch("imageLoaded");

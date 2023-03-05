@@ -1,18 +1,27 @@
-<script>
+<script lang="ts">
     import { dev } from '$app/environment'
     import { page } from '$app/stores'
     import { goto } from '$app/navigation'
 
     const baseUrl = dev ? `http://127.0.0.1:80` : `https://auth.kanime.fr`;
-    const state = crypto.randomUUID();
+    const state: string = crypto.randomUUID();
 
-    let email, password, otp;
+    interface Token {
+        token: string,
+        expires_on: number,
+        stg?: string
+    }
 
-    let loading = false, error;
-    let stages = [];
-    $: currentStage = stages.length > 0 ? stages[stages.length - 1] : {};
+    let email: string | undefined;
+    let password: string | undefined;
+    let otp: string | undefined;
 
-    async function popStage(e){
+    let loading = false;
+    let error: string | undefined;
+    let stages: Array<Token> = [];
+    $: currentStage = stages.length > 0 ? stages[stages.length - 1] : undefined;
+
+    async function popStage(e?: string){
         if (stages.length === 0 || loading)
             return;
         error = e;
@@ -23,7 +32,7 @@
     }
 
     async function sendOtp() {
-        if (stages.length === 0 || currentStage.stg !== "2fa" || loading)
+        if (!currentStage || currentStage.stg !== "2fa" || loading)
             return;
         if (!otp){
             error = "Code field is required";
@@ -54,7 +63,7 @@
         sendSignInRequest('new', { email, password, state });
     }
 
-    async function sendSignInRequest(mode, body) {
+    async function sendSignInRequest(mode: string, body) {
         loading = true;
         try {
             let res = await fetch(`${baseUrl}/signin/${mode}`, {
@@ -70,8 +79,8 @@
                 loading = false;
                 return;
             }
-            res = await res.json();
-            if (res.stg === "ok")
+            let token: Token = await res.json();
+            if (token.stg === "ok")
             {
                 let target = "/";
                 let follow = $page.url.searchParams.get('to');
@@ -83,11 +92,11 @@
                 loading = false;
                 return;
             }
-            stages.push(res);
+            stages.push(token);
             stages = stages;
             error = undefined;
         } catch(e) {
-            error = e;
+            error = e.message;
         }
         loading = false;
     }
@@ -122,7 +131,7 @@
                     Verify
                 {/if}
             </button>
-            <button on:click={popStage} disabled={loading} class="neutral">
+            <button on:click={() => popStage()} disabled={loading} class="neutral">
                 Back
             </button>
         </form>

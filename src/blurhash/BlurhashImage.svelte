@@ -1,17 +1,17 @@
-<script>
+<script lang="ts">
     import Image from './Image.svelte'
-    import blurHashToDataURL from './blurHashToDataUrl.ts'
+    import blurHashToDataURL from './blurHashToDataUrl.js'
     import { fade } from 'svelte/transition';
 
     let loaded = false;
-    export let src;
-    export let alt = "";
-    export let hash;
-    export let width = 32;
-    export let height = 32;
-    export let loading;
-    export let blurhashWidth = 32;
-    export let blurhashHeight = 32;
+    export let src: string | null;
+    export let alt: string = "";
+    export let hash: string;
+    export let width: number | string = 32;
+    export let height: number | string = 32;
+    export let loading: "lazy" | "eager" | undefined = "lazy";
+    export let blurhashWidth: number = 32;
+    export let blurhashHeight: number = 32;
     $: placeholder = typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
 </script>
@@ -43,6 +43,7 @@
 <style lang="scss">
     .img {
         position: relative;
+        z-index: 0;
 
         .placeholder {
             position: absolute;
@@ -52,6 +53,7 @@
             bottom: 0;
             width: 100%;
             height: 100%;
+            z-index: 3;
         }
     }
 </style>

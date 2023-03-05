@@ -1,7 +1,7 @@
 <script>
     import { page } from '$app/stores';
     import { onMount } from 'svelte';
-    import { getBlurHashCssGradient } from './utils.js'
+    import { getBlurHashCssGradient } from './utils.ts'
     import BlurhashImage from './../../../blurhash/BlurhashImage.svelte'
 
     let locale;

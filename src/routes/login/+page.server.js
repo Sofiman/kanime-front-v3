@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-/** @type {import('./$types').LayoutServerLoad} */
+/** @type {import('./$types').PageServerLoad} */
 export async function load({ cookies, url }) {
     const session = cookies.get('sessionId');
 

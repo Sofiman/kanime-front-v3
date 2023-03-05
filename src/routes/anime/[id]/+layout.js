@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import { dev } from '$app/environment';
 
-/** @type {import('./$types').PageLoad} */
+/** @type {import('./$types').LayoutLoad} */
 export async function load({ fetch, params }) {
     const baseUrl = dev ? `http://127.0.0.1:8080` : `https://api.kanime.fr`;
     let res;

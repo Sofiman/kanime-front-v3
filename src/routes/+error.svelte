@@ -1,15 +1,16 @@
-<script>
+<script lang="ts">
     import { page } from '$app/stores';
+    $: error = $page?.error?.message || "Unknown error";
 </script>
 
 <svelte:head>
     <title>Error {$page.status} - Kanime</title>
-    <meta property="description" content={$page.error.message} />
+    <meta property="description" content={error} />
 </svelte:head>
 
 <div>
     <h1>{$page.status}</h1>
-    <p>{$page.error.message}</p>
+    <p>{error}</p>
 </div>
 
 <style>
