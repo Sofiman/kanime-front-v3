@@ -19,6 +19,18 @@
         { dateStyle: 'full', timeStyle: 'short' })
         .format(new Date(anime.updatedOn));
 
+    function duration(seconds) {
+        let hours = Math.floor(seconds / 3600);
+        let minutes = Math.floor((seconds - hours * 3600) / 60);
+        seconds = seconds - hours * 3600 - minutes * 60;
+        let time = hours > 0 ? `${hours}h` : '';
+        if (minutes > 0)
+            time += `${minutes}m`;
+        if (seconds > 0 || time.length === 0)
+            time += `${seconds}s`;
+        return time;
+    }
+
     onMount(() => {
         locale = (navigator && (navigator.languages || navigator.language)) || 'en-US';
     });
@@ -116,9 +128,9 @@
             <div class="mapping">
                 <div class="range episodes">
                     {#if mapping.kind === 'movie'}
-                    <div class="start">0s</div>
+                    <div class="start">{duration(mapping.startEpisode)}</div>
                     <span>Duration</span>
-                    <div class="end">{mapping.endEpisode}h</div>
+                    <div class="end">{duration(mapping.endEpisode)}</div>
                     {:else}
                     <div class="start">{mapping.startEpisode}</div>
                     <span>Episodes</span>
