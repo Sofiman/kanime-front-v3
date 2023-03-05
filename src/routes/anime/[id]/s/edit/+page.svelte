@@ -1,6 +1,6 @@
 <script>
     import BlurhashImage from './../../../../../blurhash/BlurhashImage.svelte'
-    import { getBlurHashCssGradient } from '../../utils.js'
+    import { getBlurHashCssGradient } from '../../utils.ts'
     import Input from './../../../../../common/Input.svelte'
 
     /** @type {import('./$types').PageData} */
