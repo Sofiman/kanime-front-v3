@@ -12,7 +12,9 @@
     $: title = anime.titles[0];
     $: poster = `https://media.kanime.fr/fullres/${anime.poster.key}.webp`;
     $: desc = `Check the anime-manga correspondance for ${title}. Find out what episode or season to watch after or which volume or chapters to read.`;
-    $: bg = getBlurHashCssGradient(anime.poster.placeholder, [24, 24, 32]);
+    $: placeholder = anime.poster.placeholder.split("/");
+    $: bg = getBlurHashCssGradient(placeholder.length > 1 ? ("  " +
+        placeholder[1]) : placeholder[0], [24, 24, 32]);
     $: lastUpdated = locale && new Intl.DateTimeFormat(locale,
         { dateStyle: 'full', timeStyle: 'short' })
         .format(new Date(anime.updatedOn));
@@ -60,7 +62,7 @@
         <div class="poster">
             <BlurhashImage
                 src={poster}
-                hash={anime.poster.placeholder}
+                hash={placeholder[0]}
                 blurhashHeight={48}
                 alt={`${title}'s poster`}
                 loading={"eager"}
