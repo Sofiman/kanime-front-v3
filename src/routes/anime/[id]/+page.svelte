@@ -52,7 +52,7 @@
 </script>
 
 <svelte:head>
-    <title>{title} anime/manga correspondance - Kanime</title>
+    <title>Where does {title} end in the manga? - Kanime</title>
     <meta property="description" content={desc} />
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Kanime" />
@@ -157,6 +157,15 @@
                 {/if}
                 starts at chapter {mapping.startChapter} in volume {mapping.startVolume} and
                 ends at chapter {mapping.endChapter} in volume {mapping.endVolume}</p>
+
+            {#if mapping.pinnedNote}
+                <div class="note">
+                    <h2>Note</h2>
+                    <div class="content">
+                        {mapping.pinnedNote.content}
+                    </div>
+                </div>
+            {/if}
         </div>
 
         {#if lastUpdated}
@@ -210,11 +219,17 @@
 
         .poster {
             box-shadow: 0 0 4px 0 rgba(0,0,0,.25);
-            height: 100%;
+            position: sticky;
+            top: 88px;
 
             :global(.img img) {
                 max-height: 85vh;
                 max-width: 50vw;
+            }
+
+            :global(.img:not(.loaded) img) {
+                height: 80vw;
+                aspect-ratio: 310/468;
             }
         }
     }
@@ -233,6 +248,9 @@
                 }
 
                 .poster {
+                    top: 0;
+                    position: relative;
+
                     :global(.img img), :global(.img .placeholder)  {
                         min-width: 216px;
                         height: 324px;
@@ -294,6 +312,30 @@
 
         span {
             color: #FFFFFF;
+        }
+    }
+
+    div.note {
+        display: flex;
+        flex-flow: column;
+        border-radius: 4px;
+        overflow: hidden;
+        background-color: #21212B;
+        margin: 8px 0;
+        border: 1px solid #FFCB46;
+
+        h2 {
+            font-size: 16px;
+            font-weight: bold;
+            background: #FFCB46;
+            padding: 8px;
+            color: #21212B; 
+            margin: 0;
+        }
+
+        div.content {
+            padding: 8px;
+            flex-grow: 1;
         }
     }
 

@@ -39,7 +39,7 @@
         debounce = setTimeout(() => {
             debounce = undefined;
             performSearch();
-        }, 500);
+        }, 1000);
     }
 </script>
 

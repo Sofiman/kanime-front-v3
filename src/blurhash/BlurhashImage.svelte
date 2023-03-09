@@ -16,7 +16,7 @@
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
 </script>
 
-<div class="img">
+<div class="img" class:loaded={loaded}>
     <Image
         on:imageLoaded={() => loaded = true}
         {loading}
