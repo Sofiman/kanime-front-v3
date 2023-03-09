@@ -4,9 +4,11 @@
 
     export let src: string | null | undefined;
     export let alt: string;
+    export let onload: string | undefined;
     export let width: string | number | undefined;
     export let height: string | number | undefined;
     export let loading: "lazy" | "eager" | undefined = "lazy";
+    $: decoding = loading === 'lazy' ? 'async' : undefined;
 
     let thisImage: HTMLImageElement;
     onMount(() => {
@@ -25,7 +27,8 @@
     {width}
     {height}
     {loading}
-    decoding="async"
+    {onload}
+    {decoding}
 />
 
 <style>

@@ -12,11 +12,13 @@
     export let loading: "lazy" | "eager" | undefined = "lazy";
     export let blurhashWidth: number = 32;
     export let blurhashHeight: number = 32;
-    $: placeholder = typeof hash === "string"
+    $: placeholder = !loaded && typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
+    $: loadFunction = loaded ? undefined :
+        `this.parentNode.querySelector('.placeholder').style.opacity='0'`;
 </script>
 
-<div class="img" class:loaded={loaded}>
+<div class="img">
     <Image
         on:imageLoaded={() => loaded = true}
         {loading}
@@ -24,11 +26,13 @@
         {alt}
         {width}
         {height}
+        onload={loadFunction}
     />
     {#if !loaded && placeholder}
-        <img transition:fade
+        <img
             src={placeholder}
-            class="placeholder"
+            class="placeholder hidden"
+            onload="this.classList.remove('hidden')"
             {width}
             {height}
             {alt} />
@@ -54,6 +58,11 @@
             width: 100%;
             height: 100%;
             z-index: 3;
+            transition: opacity .5s;
+
+            &.hidden {
+                opacity: 0;
+            }
         }
     }
 </style>
