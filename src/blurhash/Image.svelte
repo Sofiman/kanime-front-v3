@@ -8,14 +8,14 @@
     export let width: string | number | undefined;
     export let height: string | number | undefined;
     export let loading: "lazy" | "eager" | undefined = "lazy";
-    $: decoding = loading === 'lazy' ? 'async' : undefined;
+    export let decoding: "async" | "sync" | "auto" | undefined = "async";
 
     let thisImage: HTMLImageElement;
     onMount(() => {
         if (thisImage.complete && thisImage.naturalHeight !== 0) {
             dispatch("imageLoaded");
         } else {
-            thisImage.onload = () => dispatch("imageLoaded");
+            thisImage.decode().then(() => dispatch("imageLoaded"));
         }
     });
 </script>

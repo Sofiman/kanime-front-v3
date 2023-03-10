@@ -14,8 +14,9 @@
     export let blurhashHeight: number = 32;
     $: placeholder = !loaded && typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
-    $: loadFunction = loaded ? undefined :
-        `this.parentNode.querySelector('.placeholder').style.opacity='0'`;
+    $: decoding = loading === "eager" ? "sync" : "async";
+    $: onload = loaded ? undefined :
+        `this.decode().then(()=>(this.parentNode.querySelector('.placeholder')||{style:{}}).style.opacity='0')`;
 </script>
 
 <div class="img">
@@ -26,7 +27,8 @@
         {alt}
         {width}
         {height}
-        onload={loadFunction}
+        {decoding}
+        {onload}
     />
     {#if !loaded && placeholder}
         <img
