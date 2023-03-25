@@ -12,6 +12,7 @@
     export let loading: "lazy" | "eager" | undefined = "lazy";
     export let blurhashWidth: number = 32;
     export let blurhashHeight: number = 32;
+
     $: placeholder = !loaded && typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
     $: decoding = loading === "eager" ? "sync" : "async";
@@ -31,7 +32,7 @@
         {onload}
     />
     {#if !loaded && placeholder}
-        <img
+        <img out:fade
             src={placeholder}
             class="placeholder hidden"
             onload="this.classList.remove('hidden')"
