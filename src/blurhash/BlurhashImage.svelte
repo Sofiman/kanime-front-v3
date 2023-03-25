@@ -13,9 +13,9 @@
     export let blurhashWidth: number = 32;
     export let blurhashHeight: number = 32;
 
+    $: decoding = loading === "eager" ? "sync" : "async";
     $: placeholder = !loaded && typeof hash === "string"
         && blurHashToDataURL(hash, blurhashWidth, blurhashHeight);
-    $: decoding = loading === "eager" ? "sync" : "async";
     $: onload = loaded ? undefined :
         `this.decode().then(()=>(this.parentNode.querySelector('.placeholder')||{style:{}}).style.opacity='0')`;
 </script>
