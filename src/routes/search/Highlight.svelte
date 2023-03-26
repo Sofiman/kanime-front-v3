@@ -43,13 +43,18 @@
         return str.substring(start, i);
     }
 
-    function getChunks(actual: string, ranges: Array<Range>): Array<Chunk> {
-        if (!actual) return [];
-        if (!ranges) return [{content: actual, highlighted: false}];
+    function getChunks(input: string | Array<string> | undefined, ranges: Array<Range> | undefined): Array<Chunk> {
+        if (!input || input.length === 0) return [];
 
-        if (Array.isArray(actual)) {
-            actual = actual[0]; // TODO: Highlight in other members
+        let actual = input;
+        if (Array.isArray(input)) {
+            actual = input[0]; // TODO: Highlight in other members
         }
+
+        if (!ranges || ranges.length === 0) {
+            return [{content: actual, highlighted: false}];
+        }
+
         let chunks = [];
         let start = 0;
         for (let i in ranges) {
@@ -68,7 +73,10 @@
             start += r.length;
         }
         if (start < actual.length) {
-            chunks.push({ content: substr(actual, start), highlighted: false });
+            let content = substr(actual, start);
+            if (content.length > 0) {
+                chunks.push({ content, highlighted: false });
+            }
         }
         return chunks;
     }
