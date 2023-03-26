@@ -74,4 +74,14 @@
         gap: 16px;
         margin-top: 16px;
     }
+
+    @media screen and (max-width: 350px) {
+        .results .result {
+            flex-direction: column;
+
+            h5, p {
+                text-align: center;
+            }
+        }
+    }
 </style>

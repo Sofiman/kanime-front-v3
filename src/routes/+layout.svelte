@@ -260,6 +260,7 @@
     main {
         flex-basis: 100%;
         margin-top: var(--body-top-margin);
+        margin-bottom: 16px;
     }
 
     header {
