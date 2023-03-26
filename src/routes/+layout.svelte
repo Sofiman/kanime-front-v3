@@ -172,6 +172,10 @@
     :global(a) {
         color: #FFF;
         text-decoration: none;
+
+        &:hover, &:focus {
+            text-decoration: underline;
+        }
     }
 
     :global(.img) {
@@ -281,6 +285,7 @@
             display: flex;
             align-items: center;
             gap: 16px;
+            text-decoration: none;
 
             span {
                 font-weight: 800;

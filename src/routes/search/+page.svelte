@@ -21,11 +21,13 @@
     <div class="results" in:scale={{easing: quintOut}}>
         {#each data.results as anime (anime.id)}
             <a href={`/anime/${anime.id}`} class="result">
-                <BlurhashImage
-                    src={`https://media.kanime.fr/310x468/${anime.poster.key}.webp`}
-                    hash={anime.poster.placeholder}
-                    blurhashHeight={48}
-                    width={155} height={234} />
+                <div class="poster">
+                    <BlurhashImage
+                        src={`https://media.kanime.fr/310x468/${anime.poster.key}.webp`}
+                        hash={anime.poster.placeholder}
+                        blurhashHeight={48}
+                        width={155} height={234} />
+                </div>
                 <div class="details">
                     <h5>
                         <Highlight content={anime.titles}
@@ -60,6 +62,21 @@
             color: #FFFFFF;
             align-items: center;
             gap: 16px;
+            text-decoration: none;
+            transition: transform .1s;
+
+            .poster {
+                width: 155px;
+                height: 234px;
+                overflow: hidden;
+                box-shadow: 0 0 4px 2px rgba(0, 0, 0, 0.25);
+                border-radius: 4px;
+            }
+
+            &:hover, &:focus {
+                transform: scale(1.1);
+                z-index: 5;
+            }
 
             .details {
                 display: flex;
