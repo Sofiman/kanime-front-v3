@@ -3,6 +3,7 @@
     import BlurhashImage from './../../blurhash/BlurhashImage.svelte'
     import { quintOut } from 'svelte/easing';
     import { page } from '$app/stores';
+    import Highlight from './Highlight.svelte'
 
     export let data;
 </script>
@@ -25,7 +26,16 @@
                     hash={anime.poster.placeholder}
                     blurhashHeight={48}
                     width={155} height={234} />
-                <h5>{anime.titles[0]}</h5>
+                <div class="details">
+                    <h5>
+                        <Highlight content={anime.titles}
+                                   matches={anime.matchesPosition["titles"]} />
+                    </h5>
+                    <p>
+                        <Highlight content={anime.author}
+                            matches={anime.matchesPosition["author"]} />
+                    </p>
+                </div>
             </a>
         {:else}
             <div>
@@ -51,9 +61,8 @@
             align-items: center;
             gap: 16px;
 
-            h5 {
+            h5, p {
                 margin: 0;
-                text-align: center;
             }
         }
     }

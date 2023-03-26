@@ -16,7 +16,7 @@ export async function load({ fetch, params, url }) {
     const res = await fetch(`${baseUrl}/search`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query })
+        body: JSON.stringify({ query, displayMatches: true })
     });
     if (res.status !== 200) {
         let msg = 'Unknown error';
