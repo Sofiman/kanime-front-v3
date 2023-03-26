@@ -61,8 +61,14 @@
             align-items: center;
             gap: 16px;
 
-            h5, p {
-                margin: 0;
+            .details {
+                display: flex;
+                flex-direction: column;
+
+                h5, p {
+                    display: inline-table;
+                    margin: 0;
+                }
             }
         }
     }
