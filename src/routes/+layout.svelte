@@ -10,13 +10,14 @@
         $navigating.to.url.pathname === "/search") {
         let q = $page.url.searchParams.get('q');
         if (q) {
-            query = q;
+            query = String(q);
         }
     }
 
     function performSearch() {
+        if (searching) return;
         let params = new URLSearchParams();
-        params.set('q', query);
+        params.set('q', query || '');
         searching = true;
         if (searchPage) {
             goto(`?${params.toString()}`, { keepFocus: true, noScroll: true })
@@ -29,6 +30,9 @@
 
     let debounce;
     function onKeyDown(e) {
+        if (!query || query.length === 0) {
+            return;
+        }
         if (debounce){
             clearTimeout(debounce);
         }
@@ -66,7 +70,7 @@
 <footer>
     <p>Version 1.0. Developed by <span>Sofiman</span> with <b>♥</b></p>
     <p>
-        <a href="/">Privacy</a> •
+        <a href="/privacy">Privacy</a> •
         <a href="https://documenter.getpostman.com/view/21781515/2s93CPrCQ7"
             target="_blank" rel="noreferrer">Developers</a> •
         <a href="mailto:contact@kanime.fr">Contact</a> •
