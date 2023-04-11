@@ -8,7 +8,10 @@
         length: number
     };
     export let content: string | undefined;
+    export let query: string | undefined = undefined;
     export let matches: Array<Range> | undefined;
+
+    $: q_parts = query ? query.normalize().toLowerCase().split(/\b\s+/) : [];
 
     function utf8Len(charCode: number): number {
         if (charCode <= 0x7F) {
@@ -43,14 +46,23 @@
         return str.substring(start, i);
     }
 
-    function getChunks(input: string | Array<string> | undefined, ranges: Array<Range> | undefined): Array<Chunk> {
-        if (!input || input.length === 0) return [];
+    function getChunks(input: string | Array<string> | undefined, ranges: Array<Range> | undefined, query: Array<string>): Array<Chunk> {
+        if (!input) return [];
 
-        let actual = input;
         if (Array.isArray(input)) {
-            actual = input[0]; // TODO: Highlight in other members
+            if (input.length === 0) {
+                return [];
+            }
+            for (let i in input) {
+                let output = getChunks(input[i], ranges, query);
+                if (output.length > 0) {
+                    return output;
+                }
+            }
+            return [{content: input[0], highlighted: false}];
         }
 
+        let actual = input;
         if (!ranges || ranges.length === 0) {
             return [{content: actual, highlighted: false}];
         }
@@ -66,10 +78,12 @@
                 });
                 start = r.start;
             }
-            chunks.push({
-                content: substr(actual, r.start, r.start + r.length),
-                highlighted: true
-            });
+            let content = substr(actual, r.start, r.start + r.length);
+            let formatted = content.normalize().toLowerCase();
+            if (!query.includes(formatted)) {
+                return [];
+            }
+            chunks.push({ content, highlighted: true });
             start += r.length;
         }
         if (start < actual.length) {
@@ -82,7 +96,7 @@
     }
 </script>
 
-{#each getChunks(content, matches) as chunk}
+{#each getChunks(content, matches, q_parts) as chunk}
     <slot name="chunk" {chunk}>
         <!-- Default behaviour -->
         {#if chunk.highlighted}

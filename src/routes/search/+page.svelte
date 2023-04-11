@@ -1,9 +1,11 @@
-<script>
+<script lang="ts">
     import { scale } from 'svelte/transition';
     import BlurhashImage from './../../blurhash/BlurhashImage.svelte'
     import { quintOut } from 'svelte/easing';
     import { page } from '$app/stores';
     import Highlight from './Highlight.svelte'
+
+    $: query = $page.url.searchParams.get('q');
 
     export let data;
 </script>
@@ -30,7 +32,7 @@
                 </div>
                 <div class="details">
                     <h5>
-                        <Highlight content={anime.titles}
+                        <Highlight content={anime.titles} {query}
                                    matches={anime.matchesPosition["titles"]} />
                     </h5>
                     <p>

@@ -7,7 +7,7 @@ export async function load({ fetch, params, url }) {
     if (!query) {
         return { results: [] };
     }
-    query = query.trim();
+    query = query.trim().normalize();
     if (query === "" || query.length < 2) {
         return { results: [] };
     }
