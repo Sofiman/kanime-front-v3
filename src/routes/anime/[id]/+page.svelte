@@ -115,7 +115,13 @@
                 {:else}
                     <div></div>
                 {/if}
-                {mapping.label}
+                <div>
+                    {#if mapping.kind === "ova" &&
+                        !(mapping.label.toLowerCase().includes("ova"))}
+                        <span>OVA</span>
+                    {/if}
+                    {mapping.label}
+                </div>
                 {#if selectedMapping < anime.mapping.length - 1}
                     <button on:click={next}>
                         <img src="/images/ChevronRight.svg" alt="Next" />
@@ -152,6 +158,8 @@
             <p>{mapping.label} 
                 {#if mapping.kind === 'movie'}
                 (movie)
+                {:else if mapping.kind === 'ova'}
+                (OVA)
                 {:else}
                 (episodes {mapping.startEpisode} trough {mapping.endEpisode})
                 {/if}
@@ -349,6 +357,10 @@
         padding: 8px;
         border-radius: 4px;
         text-align: center;
+
+        span {
+            color: #F18FF3;
+        }
 
         button {
             border: none;
