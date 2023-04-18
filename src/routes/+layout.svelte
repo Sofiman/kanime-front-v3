@@ -110,6 +110,7 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        gap: 6px;
         font-size: 1rem;
         padding: 12px 16px;
         border: none;
@@ -117,12 +118,18 @@
         color: #181820;
         background-color: #F18FF3;
         font-weight: bold;
-        transition: all .1s;
+        transition: box-shadow .1s, outline-offset .1s, opacity .1s, transform .3s;
         margin: 4px 0;
         cursor: pointer;
+        outline-offset: -2px;
 
         &:focus {
             box-shadow: 0 0 0 3px #F18FF360;
+            outline-offset: 3px;
+        }
+
+        &:active {
+            transform: scale(0.95);
         }
 
         &:hover {
@@ -132,7 +139,7 @@
 
         &:disabled {
             opacity: 0.75;
-            cursor: auto;
+            pointer-events: none;
         }
     }
 
@@ -146,6 +153,19 @@
 
         &:hover {
             outline: 2px solid #393949;
+        }
+    }
+
+    :global(button.success) {
+        color: #FFFFFF;
+        background-color: #15a547;
+
+        &:focus {
+            box-shadow: 0 0 0 3px #15a54760;
+        }
+
+        &:hover {
+            outline: 2px solid #15a547;
         }
     }
 
