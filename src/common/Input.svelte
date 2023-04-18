@@ -1,8 +1,8 @@
 <script lang="ts">
-    export let leftIcon: string | undefined;
-    export let rightIcon: string | undefined;
-    export let placeholder: string | undefined;
-    export let disabled: boolean | undefined;
+    export let leftIcon: string | undefined = undefined;
+    export let rightIcon: string | undefined = undefined;
+    export let placeholder: string | undefined = undefined;
+    export let disabled: boolean | undefined = undefined;
     export let value = "";
 </script>
 
