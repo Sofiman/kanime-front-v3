@@ -32,7 +32,7 @@
         {onload}
     />
     {#if !loaded && placeholder}
-        <img out:fade
+        <img out:fade|global
             src={placeholder}
             class="placeholder hidden"
             onload="this.classList.remove('hidden')"

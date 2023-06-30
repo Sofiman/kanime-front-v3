@@ -20,7 +20,7 @@
 </svelte:head>
 
 <div class="container">
-    <div class="results" in:scale={{easing: quintOut}}>
+    <div class="results" in:scale|global={{easing: quintOut}}>
         {#each data.results as anime (anime.id)}
             <a href={`/anime/${anime.id}`} class="result">
                 <div class="poster">
