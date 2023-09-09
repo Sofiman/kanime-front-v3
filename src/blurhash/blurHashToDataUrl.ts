@@ -4,7 +4,6 @@ export default function blurHashToDataURL(hash: string, width: number, height: n
    const start = Date.now();
    const pixels = decodeBlurHash(hash, width, height, punch)
    const dataURL = parsePixels(pixels, width, height)
-   console.log("blurHashToDataURL(...):", Date.now()-start, "ms");
    return dataURL
 }
 
